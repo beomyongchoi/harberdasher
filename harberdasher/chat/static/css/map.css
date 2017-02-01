@@ -1,0 +1,38 @@
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 50rem;
+ }
+
+.controls {
+  margin-top: 10px;
+  border: 2px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
+
+#pac-input {
+  font-family: inherit;
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  margin-right: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px; }
+
+#pac-input:focus {
+  border-color: #00592D; }
+
+.pac-container {
+  font-family: inherit; }
+
+#current {
+    background-color: white;
+    margin-right: 10px;
+    padding: 0 8px;
+    margin-top: 10px;
+}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Chat{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,200' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/7229a98830.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
+{% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skeleton.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/floating.css' %}">
+    <link rel="stylesheet" href="{% static 'css/room.css' %}">
+    {% block head %}{% endblock head %}
+</head>
+
+<body>
+    <div class="container">
+        <section class="header">
+            <h2 class="docs-header">Starbucks Chat</h1>
+            <!-- <p class="deck">
+                This is a chat using <a href="http://channels.readthedocs.org/en/latest/">
+                Django Channels</a> to implement a simple WebSocket-based chat server. You can try the app:
+                {% lorem random %}
+            </p>
+            <h2 class="title">Starbucks Chat</h2> -->
+        </section>
+        <div class="navbar-spacer"></div>
+        <nav class="navbar">
+            <div class="container">
+                <ul class="navbar-list">
+                    <li class="navbar-item"><a class="navbar-link" href="{% url 'home' %}">Home</a></li>
+                    <!-- <li class="navbar-item">
+                        <a class="navbar-link" href="#" data-popover="#codeNavPopover">Code</a>
+                        <div id="codeNavPopover" class="popover">
+                            <ul class="popover-list">
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#grid">Grid</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#typography">Typography</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#buttons">Buttons</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#forms">Forms</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#lists">Lists</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#code">Code</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#tables">Tables</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#queries">Queries</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="#utilities">Utilities</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> -->
+                    <li class="navbar-item"><a class="navbar-link" href="{% url 'tags' %}">interests</a></li>
+                    <!-- <li class="navbar-item">
+                        <a class="navbar-link" href="#" data-popover="#moreNavPopover">More</a>
+                        <div id="moreNavPopover" class="popover">
+                            <ul class="popover-list">
+                                <li class="popover-item">
+                                    <a class="popover-link" href="https://github.com/dhg/Skeleton">On Github</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="https://github.com/dhg/Skeleton#browser-support">Browsers</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="https://github.com/dhg/Skeleton#license">License</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="https://github.com/dhg/Skeleton#extensions">Extensions</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="https://github.com/dhg/Skeleton/releases">Versions</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="https://github.com/dhg/Skeleton#colophon">Colophon</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> -->
+                    <li class="navbar-item" style="float:right">
+                        <a class="navbar-link"
+                        {% if user.is_authenticated %} href="#" data-popover="#userNavPopover">{{user}}</a>
+                        <div id="userNavPopover" class="popover popover-right">
+                            <ul class="popover-list">
+                                <li class="popover-item">
+                                    <a class="popover-link" href="{% url 'profile' user.username %}">Profile</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="{% url 'password' %}">Change Password</a>
+                                </li>
+                                <li class="popover-item">
+                                    <a class="popover-link" href="{% url 'logout' %}">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% else %} href="{% url 'login' %}">Login</a>{% endif %}</li>
+                </ul>
+            </div>
+        </nav>
+        {% block content %}{% endblock content %}
+
+        {% block float %}
+        <div id="floatWindow">
+            <div id="noRoomSelected">
+                <p>Start chat by clicking<br />any Starbucks you want </p>
+            </div>
+            <div id="chatbox">
+                <div class="chat-title">
+                    <h5></h5>
+                    <ul class="user-list">
+                    </ul>
+                </div>
+                <div class="chat-body">
+                    <ul class="chat-list">
+                    </ul>
+                </div>
+                <div class="type">
+                    <form id="chatform">
+                        <textarea placeholder="message…" id="message" onkeypress="onChange();"></textarea>
+                        <button type="submit" id="go">Say it</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="roomList">
+                <div class="list-title">
+                    <h5>Private Rooms</h5>
+                </div>
+                <div class="list-body">
+                    <table class="u-full-width list-table">
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed-action-btn horizontal">
+            <a class="btn-floating btn-large original" id="mainFloat">
+              <i class="fa fa-paper-plane"></i>
+              <i class="fa fa-arrow-left" style="display:none"></i>
+            </a>
+            <ul id="subFloat">
+              <!-- <li><a class="btn-floating btn-medium lightsalmon"><i class="fa fa-comments"></i></a></li>
+              <li><a class="btn-floating btn-medium palegoldenrod"><i class="material-icons">format_quote</i></a></li> -->
+              <li><a class="btn-floating btn-medium mediumseagreen" id="private"><i class="fa fa-child"></i></a></li>
+              <li><a class="btn-floating btn-medium dodgerblue" id="random"><i class="fa fa-random"></i></a></li>
+            </ul>
+            <div class="btn-floating btn-small orangered" id="alertCounter">
+                <p></p>
+            </div>
+          </div>
+          {% endblock float %}
+
+    </div>
+    <script type="text/javascript" src='{% static "js/jquery-1.12.3.min.js" %}'></script>
+    <script src="//cdn.jsdelivr.net/velocity/1.4.0/velocity.min.js"></script>
+    <script type="text/javascript" src='{% static "js/reconnecting-websocket.min.js" %}'></script>
+    <script type="text/javascript">
+        URL = '{{ request.scheme }}://{{ request.get_host }}/';
+        var currentUser;
+        {% if user.is_authenticated %}
+        currentUser = '{{ user }}';
+        {% endif %}
+        var socket;
+        var alert_count = {% if count %}{{ count }}{% else %}0{% endif %};
+    </script>
+    <script type="text/javascript" src='{% static "js/chat.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/base.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/csrf.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/floating.js" %}'></script>
+    {% block afterbody %}{% endblock afterbody %}
+</body>
+
+</html>

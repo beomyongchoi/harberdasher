@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="nine columns">
+        <div class="docs-section">
+            <h2 class="docs-header">People who like <code>{{ tag_name }}</code></h2>
+
+            <table class="u-full-width">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td style="line-height:38px;">{{ user }}</td>
+                        <td style="text-align:right;">
+                        {% if user != request.user %}
+                        <a class="button" href="{% url 'profile' user %}">profile</a>
+                        <button class="private-chat" style="margin-left: 20px;" id="{{user}}">start chat</button></td>
+                        {% else %} <a class="button" href="{% url 'profile' user %}">It's me</a>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="three columns">
+        <div class="docs-section">
+            <h4 class="docs-header">Popular Tags</h4>
+            {% for tag, count in popular_tags %}
+              <a class="tag" href="{% url 'tag' tag %}"><code>{{ count }} {{ tag }}</code></a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+<!-- just use a number and class 'column' or 'columns' -->
+
+{% endblock %}
+
+{% block afterbody %}
+{% endblock %}

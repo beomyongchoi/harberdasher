@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="docs-section">
+    <h6 class="docs-header">Settings</h6>
+
+    <form action="{% url 'settings' %}" method="post" role="form">
+      {% csrf_token %}
+      {% for field in form.visible_fields %}
+        <div class="form-group{% if field.errors %} has-danger{% endif %}">
+          <label for="{{ field.label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}
+            <p class="help-block help-text">{{ field.help_text|safe }}</p>
+          {% endif %}
+          {% for error in field.errors %}
+            <label class="control-label help-text">{{ error }}</label>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary btn-lg">save</button>
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block float %}
+{% endblock %}

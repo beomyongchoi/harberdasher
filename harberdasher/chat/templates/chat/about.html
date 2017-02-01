@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/map.css' %}">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=pOK1vfqW3iwmGmewUghS&submodules=geocoder"></script>
+<script type="text/javascript" src="{% static 'js/MarkerOverlappingRecognizer.js' %}"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPttSojFzulBepmZoS2QK_FE7mI_X87Ao&libraries=places"></script>
+{% endblock head %}
+
+{% block content %}
+<div class="docs-section">
+    <div id="map"></div>
+</div>
+
+{% endblock content %}
+
+{% block afterbody %}
+<script type="text/javascript">
+    var STARBUCKS_ICON_URL = "{% static 'images/logo/starbucks.png' %}";
+    var STARBUCKS_HIGHLIGHT_ICON_URL = "{% static 'images/logo/starbucks_highlight.png' %}";
+    var starbucksList = [];
+    var temp = [];
+    {% for starbucks in list %}
+    temp = [{
+        "name": "{{starbucks.name}}",
+        "id": "{{starbucks.id}}",
+        "mapx": "{{starbucks.mapx}}",
+        "mapy": "{{starbucks.mapy}}",
+    }];
+    starbucksList = starbucksList.concat(temp);
+    {% endfor %}
+</script>
+<script src="{% static 'js/map.js' %}"></script>
+{% endblock afterbody %}

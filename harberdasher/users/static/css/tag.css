@@ -1,0 +1,647 @@
+.tags {
+    text-decoration: none;
+}
+
+.tags:hover {
+    color: #00592D;
+}
+
+.tag-1 {
+    font-size: 1.05rem;
+    color: #fefefe
+}
+
+.tag-2 {
+    font-size: 1.1rem;
+    color: #fcfcfc
+}
+
+.tag-3 {
+    font-size: 1.15rem;
+    color: #fafafa
+}
+
+.tag-4 {
+    font-size: 1.2rem;
+    color: #f8f8f8
+}
+
+.tag-5 {
+    font-size: 1.25rem;
+    color: #f6f6f6
+}
+
+.tag-6 {
+    font-size: 1.3rem;
+    color: #f4f4f4
+}
+
+.tag-7 {
+    font-size: 1.35rem;
+    color: #f2f2f2
+}
+
+.tag-8 {
+    font-size: 1.4rem;
+    color: #f0f0f0
+}
+
+.tag-9 {
+    font-size: 1.45rem;
+    color: #eeeeee
+}
+
+.tag-10 {
+    font-size: 1.5rem;
+    color: #ececec
+}
+
+.tag-11 {
+    font-size: 1.55rem;
+    color: #eaeaea
+}
+
+.tag-12 {
+    font-size: 1.6rem;
+    color: #e8e8e8
+}
+
+.tag-13 {
+    font-size: 1.65rem;
+    color: #e6e6e6
+}
+
+.tag-14 {
+    font-size: 1.7rem;
+    color: #e4e4e4
+}
+
+.tag-15 {
+    font-size: 1.75rem;
+    color: #e2e2e2
+}
+
+.tag-16 {
+    font-size: 1.8rem;
+    color: #e0e0e0
+}
+
+.tag-17 {
+    font-size: 1.85rem;
+    color: #dedede
+}
+
+.tag-18 {
+    font-size: 1.9rem;
+    color: #dcdcdc
+}
+
+.tag-19 {
+    font-size: 1.95rem;
+    color: #dadada
+}
+
+.tag-20 {
+    font-size: 2.0rem;
+    color: #d8d8d8
+}
+
+.tag-21 {
+    font-size: 2.05rem;
+    color: #d6d6d6
+}
+
+.tag-22 {
+    font-size: 2.1rem;
+    color: #d4d4d4
+}
+
+.tag-23 {
+    font-size: 2.15rem;
+    color: #d2d2d2
+}
+
+.tag-24 {
+    font-size: 2.2rem;
+    color: #d0d0d0
+}
+
+.tag-25 {
+    font-size: 2.25rem;
+    color: #cecece
+}
+
+.tag-26 {
+    font-size: 2.3rem;
+    color: #cccccc
+}
+
+.tag-27 {
+    font-size: 2.35rem;
+    color: #cacaca
+}
+
+.tag-28 {
+    font-size: 2.4rem;
+    color: #c8c8c8
+}
+
+.tag-29 {
+    font-size: 2.45rem;
+    color: #c6c6c6
+}
+
+.tag-30 {
+    font-size: 2.5rem;
+    color: #c4c4c4
+}
+
+.tag-31 {
+    font-size: 2.55rem;
+    color: #c2c2c2
+}
+
+.tag-32 {
+    font-size: 2.6rem;
+    color: #c0c0c0
+}
+
+.tag-33 {
+    font-size: 2.65rem;
+    color: #bebebe
+}
+
+.tag-34 {
+    font-size: 2.7rem;
+    color: #bcbcbc
+}
+
+.tag-35 {
+    font-size: 2.75rem;
+    color: #bababa
+}
+
+.tag-36 {
+    font-size: 2.8rem;
+    color: #b8b8b8
+}
+
+.tag-37 {
+    font-size: 2.85rem;
+    color: #b6b6b6
+}
+
+.tag-38 {
+    font-size: 2.9rem;
+    color: #b4b4b4
+}
+
+.tag-39 {
+    font-size: 2.95rem;
+    color: #b2b2b2
+}
+
+.tag-40 {
+    font-size: 3.0rem;
+    color: #b0b0b0
+}
+
+.tag-41 {
+    font-size: 3.05rem;
+    color: #aeaeae
+}
+
+.tag-42 {
+    font-size: 3.1rem;
+    color: #acacac
+}
+
+.tag-43 {
+    font-size: 3.15rem;
+    color: #aaaaaa
+}
+
+.tag-44 {
+    font-size: 3.2rem;
+    color: #a8a8a8
+}
+
+.tag-45 {
+    font-size: 3.25rem;
+    color: #a6a6a6
+}
+
+.tag-46 {
+    font-size: 3.3rem;
+    color: #a4a4a4
+}
+
+.tag-47 {
+    font-size: 3.35rem;
+    color: #a2a2a2
+}
+
+.tag-48 {
+    font-size: 3.4rem;
+    color: #a0a0a0
+}
+
+.tag-49 {
+    font-size: 3.45rem;
+    color: #9e9e9e
+}
+
+.tag-50 {
+    font-size: 3.5rem;
+    color: #9c9c9c
+}
+
+.tag-51 {
+    font-size: 3.55rem;
+    color: #9a9a9a
+}
+
+.tag-52 {
+    font-size: 3.6rem;
+    color: #989898
+}
+
+.tag-53 {
+    font-size: 3.65rem;
+    color: #969696
+}
+
+.tag-54 {
+    font-size: 3.7rem;
+    color: #949494
+}
+
+.tag-55 {
+    font-size: 3.75rem;
+    color: #929292
+}
+
+.tag-56 {
+    font-size: 3.8rem;
+    color: #909090
+}
+
+.tag-57 {
+    font-size: 3.85rem;
+    color: #8e8e8e
+}
+
+.tag-58 {
+    font-size: 3.9rem;
+    color: #8c8c8c
+}
+
+.tag-59 {
+    font-size: 3.95rem;
+    color: #8a8a8a
+}
+
+.tag-60 {
+    font-size: 4.0rem;
+    color: #888888
+}
+
+.tag-61 {
+    font-size: 4.05rem;
+    color: #868686
+}
+
+.tag-62 {
+    font-size: 4.1rem;
+    color: #848484
+}
+
+.tag-63 {
+    font-size: 4.15rem;
+    color: #828282
+}
+
+.tag-64 {
+    font-size: 4.2rem;
+    color: #808080
+}
+
+.tag-65 {
+    font-size: 4.25rem;
+    color: #7e7e7e
+}
+
+.tag-66 {
+    font-size: 4.3rem;
+    color: #7c7c7c
+}
+
+.tag-67 {
+    font-size: 4.35rem;
+    color: #7a7a7a
+}
+
+.tag-68 {
+    font-size: 4.4rem;
+    color: #787878
+}
+
+.tag-69 {
+    font-size: 4.45rem;
+    color: #767676
+}
+
+.tag-70 {
+    font-size: 4.5rem;
+    color: #747474
+}
+
+.tag-71 {
+    font-size: 4.55rem;
+    color: #727272
+}
+
+.tag-72 {
+    font-size: 4.6rem;
+    color: #707070
+}
+
+.tag-73 {
+    font-size: 4.65rem;
+    color: #6e6e6e
+}
+
+.tag-74 {
+    font-size: 4.7rem;
+    color: #6c6c6c
+}
+
+.tag-75 {
+    font-size: 4.75rem;
+    color: #6a6a6a
+}
+
+.tag-76 {
+    font-size: 4.8rem;
+    color: #686868
+}
+
+.tag-77 {
+    font-size: 4.85rem;
+    color: #666666
+}
+
+.tag-78 {
+    font-size: 4.9rem;
+    color: #646464
+}
+
+.tag-79 {
+    font-size: 4.95rem;
+    color: #626262
+}
+
+.tag-80 {
+    font-size: 5.0rem;
+    color: #606060
+}
+
+.tag-81 {
+    font-size: 5.05rem;
+    color: #5e5e5e
+}
+
+.tag-82 {
+    font-size: 5.1rem;
+    color: #5c5c5c
+}
+
+.tag-83 {
+    font-size: 5.15rem;
+    color: #5a5a5a
+}
+
+.tag-84 {
+    font-size: 5.2rem;
+    color: #585858
+}
+
+.tag-85 {
+    font-size: 5.25rem;
+    color: #565656
+}
+
+.tag-86 {
+    font-size: 5.3rem;
+    color: #545454
+}
+
+.tag-87 {
+    font-size: 5.35rem;
+    color: #525252
+}
+
+.tag-88 {
+    font-size: 5.4rem;
+    color: #505050
+}
+
+.tag-89 {
+    font-size: 5.45rem;
+    color: #4e4e4e
+}
+
+.tag-90 {
+    font-size: 5.5rem;
+    color: #4c4c4c
+}
+
+.tag-91 {
+    font-size: 5.55rem;
+    color: #4a4a4a
+}
+
+.tag-92 {
+    font-size: 5.6rem;
+    color: #484848
+}
+
+.tag-93 {
+    font-size: 5.65rem;
+    color: #464646
+}
+
+.tag-94 {
+    font-size: 5.7rem;
+    color: #444444
+}
+
+.tag-95 {
+    font-size: 5.75rem;
+    color: #424242
+}
+
+.tag-96 {
+    font-size: 5.8rem;
+    color: #404040
+}
+
+.tag-97 {
+    font-size: 5.85rem;
+    color: #3e3e3e
+}
+
+.tag-98 {
+    font-size: 5.9rem;
+    color: #3c3c3c
+}
+
+.tag-99 {
+    font-size: 5.95rem;
+    color: #3a3a3a
+}
+
+.tag-100 {
+    font-size: 6.0rem;
+    color: #383838
+}
+
+.tag-101 {
+    font-size: 6.05rem;
+    color: #363636
+}
+
+.tag-102 {
+    font-size: 6.1rem;
+    color: #343434
+}
+
+.tag-103 {
+    font-size: 6.15rem;
+    color: #323232
+}
+
+.tag-104 {
+    font-size: 6.2rem;
+    color: #303030
+}
+
+.tag-105 {
+    font-size: 6.25rem;
+    color: #2e2e2e
+}
+
+.tag-106 {
+    font-size: 6.3rem;
+    color: #2c2c2c
+}
+
+.tag-107 {
+    font-size: 6.35rem;
+    color: #2a2a2a
+}
+
+.tag-108 {
+    font-size: 6.4rem;
+    color: #282828
+}
+
+.tag-109 {
+    font-size: 6.45rem;
+    color: #262626
+}
+
+.tag-110 {
+    font-size: 6.5rem;
+    color: #242424
+}
+
+.tag-111 {
+    font-size: 6.55rem;
+    color: #222222
+}
+
+.tag-112 {
+    font-size: 6.6rem;
+    color: #202020
+}
+
+.tag-113 {
+    font-size: 6.65rem;
+    color: #1e1e1e
+}
+
+.tag-114 {
+    font-size: 6.7rem;
+    color: #1c1c1c
+}
+
+.tag-115 {
+    font-size: 6.75rem;
+    color: #1a1a1a
+}
+
+.tag-116 {
+    font-size: 6.8rem;
+    color: #181818
+}
+
+.tag-117 {
+    font-size: 6.85rem;
+    color: #161616
+}
+
+.tag-118 {
+    font-size: 6.9rem;
+    color: #141414
+}
+
+.tag-119 {
+    font-size: 6.95rem;
+    color: #121212
+}
+
+.tag-120 {
+    font-size: 7.0rem;
+    color: #101010
+}
+
+.tag-121 {
+    font-size: 7.05rem;
+    color: #0e0e0e
+}
+
+.tag-122 {
+    font-size: 7.1rem;
+    color: #0c0c0c
+}
+
+.tag-123 {
+    font-size: 7.15rem;
+    color: #0a0a0a
+}
+
+.tag-124 {
+    font-size: 7.2rem;
+    color: #080808
+}
+
+.tag-125 {
+    font-size: 7.25rem;
+    color: #060606
+}
+
+.tag-126 {
+    font-size: 7.3rem;
+    color: #040404
+}
+
+.tag-127 {
+    font-size: 7.35rem;
+    color: #020202
+}
+
+.tag-128 {
+    font-size: 7.4rem;
+    color: #000000
+}

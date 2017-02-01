@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="docs-section center">
+    {% if user.is_authenticated %}
+        <h6 class="docs-header">How can you reach here?</h6>
+    {% else %}
+        <h6 class="docs-header">Login</h6>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+              <div class="form-group{% if field.errors %} has-danger{% endif %}">
+                <label for="{{ field.label }}">{{ field.label }}</label>
+                {{ field }}
+              </div>
+            {% endfor %}
+            <p><a class="help-text" href="{% url 'signup' %}">not yet registered? join us now</a></p>
+            {% if form.errors %}
+            <p class="help-text">Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            <input type="submit" value="login" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block afterbody %}
+<script type="text/javascript">
+    $(function() {
+        $("#id_username").focus();
+    });
+ </script>
+ {% endblock %}
+
+{% block float %}{% endblock float %}

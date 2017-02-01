@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <title>{{room.name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,200' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skeleton.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/room.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/7229a98830.css">
+</head>
+
+<body>
+
+    <div class="title">
+        <h5>{{ room.name }}</h5>
+        <ul class="user-list">
+        </ul>
+    </div>
+
+
+
+    <div class="chat">
+        <ul class="chat-list">
+            {% for message in messages reversed %}
+                {% if message.user == user %}
+                    <li class="self">
+
+                {% else %}
+                    <li>
+                        <div class="username">
+                            {{ message.user }}
+                        </div>
+                {% endif %}
+                        <div class="message">
+                            {{ message.message|linebreaksbr }}
+                        </div>
+                        <time class="timestamp">
+                            {{ message.formatted_timestamp }}
+                        </time>
+                    </li>
+                {% endfor %}
+        </ul>
+    </div>
+
+    <div class="type">
+        <form id="chatform">
+            <textarea placeholder="message…" id="message" onkeypress="onChange();"></textarea>
+            <button type="submit" id="go">Say it</button>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        var currentUser = '{{ user }}';
+    </script>
+    <script type="text/javascript" src='{% static "js/jquery-1.12.3.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/reconnecting-websocket.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/chat.js" %}'></script>
+</body>
+
+</html>

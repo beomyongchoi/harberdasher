@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">
+      {{ message }}
+      <a class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+    </div>
+  {% endfor %}
+{% endif %}
+
+<div class="docs-section" style="border-top:none">
+    <h2>{{ page_user|title }}</h2>
+    <h2 class="docs-header">Profile</h2>
+
+    <div class="row">
+        <div class="three columns">
+            <img src="{{ page_user.profile.get_picture }}" class="picture">
+            {% if user == page_user %}
+            <form enctype="multipart/form-data" method="post" action="{% url 'upload_picture' %}" id="picture-upload-form">
+              {% csrf_token %}
+              <input type="file" name="picture" style="display: none">
+              <button type="button" class="btn btn-default" id="btn-upload-picture">Upload New Picture</button>
+            </form>
+            {% endif %}
+        </div>
+
+        <div class="nine columns">
+            <table class="u-full-width">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ page_user }}</td>
+                        {% if page_user.profile.birthdate %}
+                        <td class="profile">{{ page_user.profile.get_age }}</td>
+                        {% else %}
+                        <td class="profile"></td>
+                        {% endif %}
+                        {% if page_user.profile.sex %}
+                        <td>{{ page_user.profile.sex }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if page_user.profile.location %}
+                        <td class="profile">{{ page_user.profile.get_location }}</td>
+                        {% else %}
+                        <td class="profile"></td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Interests</strong></td>
+                        <td colspan="3" class="profile">
+                            {% for tag in tags %}
+                            <a class="tag" href="{% url 'tag' tag.tag %}"><code>{{ tag.tag }}</code></a> {% endfor %}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            {% if user == page_user %}
+            <div align="right">
+                <a class="button settings" href="{% url 'settings' %}">Account Settings</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if uploaded_picture %}
+  <form method="post" action="{% url 'save_uploaded_picture' %}">
+    {% csrf_token %}
+    <div class="modal" id="modal-upload-picture">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <a type="button" class="modal-close" data-dismiss="modal" aria-hidden="true">&times;</a>
+            <h4 class="modal-title">Crop Picture</h4>
+          </div>
+          <div class="modal-body">
+            <div class="selected-picture">
+              <p>Crop the profile picture and then click on the <strong>Save Picture</strong> button</p>
+              <img src="{% get_media_prefix %}profile_pictures/{{ page_user.username }}_tmp.png?_={% now 'U' %}" id="crop-picture">
+              <input type="hidden" id="x" name="x" />
+              <input type="hidden" id="y" name="y" />
+              <input type="hidden" id="w" name="w" />
+              <input type="hidden" id="h" name="h" />
+            </div>
+            <script type="text/javascript">
+             $(function () {
+                $("#modal-upload-picture").modal();
+                window.history.pushState("", "", "/users/{{page_user.username}}");
+              });
+            </script>
+          </div>
+          <div class="modal-footer" align="right">
+            <!-- <button type="button" data-dismiss="modal"> Close</button> -->
+            <button type="submit" class="button-primary"> Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endif %}
+
+{% endblock %}
+
+{% block afterbody %}
+    <script type="text/javascript">
+        $(".close").click(function() {
+            $(".close").parent().hide();
+        });
+    </script>
+    <link href="{% static 'css/jquery.Jcrop.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.Jcrop.min.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
