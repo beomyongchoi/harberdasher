@@ -1,27 +1,14 @@
+import os
+
 from unipath import Path
 from decouple import config
-# import os
-# import random
-# import string
-
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-# SECRET_KEY = os.environ.get("SECRET_KEY", "".join(random.choice(string.printable) for i in range(40)))
-# DEBUG = os.environ.get("DEBUG", False)
 
 PROJECT_DIR = Path(__file__).parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
 SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-
-# Application definition
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,7 +16,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
+    # 'django_extensions',
 
     # 'django.contrib.humanize',
 
@@ -69,19 +56,59 @@ TEMPLATES = (
     },
 )
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+# [START db_setup]
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': config('DB_HOST'),
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+        }
+    }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': '',
-    },
-}
+    # Channel settings
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "asgi_redis.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [config('REDIS_URL')],
+            },
+            "ROUTING": "harberdasher.routing.channel_routing",
+        },
+    }
+else:
+    # Running locally so connect to either a local MySQL instance or connect to
+    # Cloud SQL via the proxy. To start the proxy via command line:
+    #
+    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'STARBUCKS_CHAT',
+            'USER': 'STARBUCKS',
+            'PASSWORD': 'hA8(syA@!fg3*sc&xzG$&6%-l<._&xCf',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        },
+    }
+
+    # Channel settings
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "asgi_redis.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": ['redis://127.0.0.1:6379'],
+            },
+            "ROUTING": "harberdasher.routing.channel_routing",
+        },
+    }
+
 
 AUTH_PASSWORD_VALIDATORS = (
     {
@@ -115,26 +142,13 @@ ALLOWED_HOSTS = ['*']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_ROOT = PROJECT_DIR.parent.child('staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'static'),
     PROJECT_DIR.child('static'),
 ]
-
-# Channel settings
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "asgi_redis.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [config('REDIS_URL')],
-        },
-        "ROUTING": "harberdasher.routing.channel_routing",
-    },
-}
 
 # Logging
 LOGGING = {
@@ -158,9 +172,7 @@ LOGGING = {
         },
     },
 }
-# TEMPLATE_DIRS = (
-#     PROJECT_DIR.child('templates'),
-# )
+
 
 MEDIA_ROOT = PROJECT_DIR.parent.child('media')
 MEDIA_URL = '/media/'

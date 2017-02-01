@@ -152,7 +152,7 @@ class Tag(models.Model):
 
     @staticmethod
     def get_popular_tags():
-        tags = Tag.objects.filter(status=ACTIVE)
+        tags = Tag.objects.filter(status='A')
         count = {}
         for tag in tags:
             if tag.tag in count:
