@@ -1,13 +1,12 @@
 import os
 
 from unipath import Path
-from decouple import config
 
 PROJECT_DIR = Path(__file__).parent
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = '3izb^rygwj(bvrjb2_y1fZvcnbay#358_l6-nn#i5fkug4mmz!'
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = False
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -56,58 +55,26 @@ TEMPLATES = (
     },
 )
 
-# [START db_setup]
-if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
-    # Running on production App Engine, so connect to Google Cloud SQL using
-    # the unix socket at /cloudsql/<your-cloudsql-connection string>
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': config('DB_HOST'),
-            'NAME': config('DB_NAME'),
-            'USER': config('DB_USER'),
-            'PASSWORD': config('DB_PASSWORD'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'y0nkiij6humroewt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'NAME': 'm0jhk4oepzwacc9i',
+        'USER': 'fab5qzfq01wyskdp',
+        'PASSWORD': 'clu12p5gqspu7zdm',
     }
+}
 
-    # Channel settings
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "asgi_redis.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [config('REDIS_URL')],
-            },
-            "ROUTING": "harberdasher.routing.channel_routing",
+# Channel settings
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": ["redis://:v5qT2f77rvVJfSMJ@redis-15215.c11.us-east-1-3.ec2.cloud.redislabs.com:15215/0"],
         },
-    }
-else:
-    # Running locally so connect to either a local MySQL instance or connect to
-    # Cloud SQL via the proxy. To start the proxy via command line:
-    #
-    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
-    #
-    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'STARBUCKS_CHAT',
-            'USER': 'STARBUCKS',
-            'PASSWORD': 'hA8(syA@!fg3*sc&xzG$&6%-l<._&xCf',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-        },
-    }
-
-    # Channel settings
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "asgi_redis.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": ['redis://127.0.0.1:6379'],
-            },
-            "ROUTING": "harberdasher.routing.channel_routing",
-        },
-    }
+        "ROUTING": "harberdasher.routing.channel_routing",
+    },
+}
 
 
 AUTH_PASSWORD_VALIDATORS = (

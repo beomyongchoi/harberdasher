@@ -15,7 +15,6 @@ olefile==0.44
 packaging==16.8
 Pillow==4.0.0
 pyparsing==2.1.10
-python-decouple==3.0
 redis==2.10.5
 six==1.10.0
 Twisted==16.6.0
