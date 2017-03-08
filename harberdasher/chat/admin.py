@@ -1,9 +1,11 @@
 from django.contrib import admin
 from .models import Room, CafeRoom, Message, JoinedUser
 
+
 class CafeRoomAdmin(admin.ModelAdmin):
     list_display = ('name', 'mapx', 'mapy')
     search_fields = ['name', 'label']
+
 
 class JoinedUserAdmin(admin.ModelAdmin):
     list_display = ('room', 'user')

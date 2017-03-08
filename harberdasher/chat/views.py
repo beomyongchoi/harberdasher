@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
+import datetime
 import json
 import urllib
 import urllib2
-import random
-import string
-import datetime
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db import transaction
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, render
 from django.utils import timezone
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 from haikunator import Haikunator
-from .models import Room, CafeRoom, JoinedUser
+
+from .models import CafeRoom, JoinedUser, Room
 
 
 def about(request):
@@ -115,7 +114,7 @@ def private_room(request):
 
         private = sorted([i, you])
         name = " ".join(str(x) for x in private).title()
-        label = 'private-' + name.replace(' ','-').lower()
+        label = 'private-' + name.replace(' ', '-').lower()
 
         room, created = Room.objects.get_or_create(
             name=name,
@@ -138,7 +137,7 @@ def private_room(request):
                 'enter_time': yesterday,
                 'exit_time': now
             }
-            obj = Person(**new_values)
+            obj = JoinedUser(**new_values)
             obj.save()
 
         # messages = room.messages.order_by('timestamp')
@@ -166,7 +165,7 @@ def private_room_list(request):
         for x in rooms:
             room_list.append({
                 'id': x.room.id,
-                'name': x.room.label.replace(user.username,'').replace('private','').strip('-'),
+                'name': x.room.label.replace(user.username, '').replace('private', '').strip('-'),
                 'unread_count': x.get_unread_count
             })
 
@@ -175,7 +174,7 @@ def private_room_list(request):
             # return JsonResponse({"room":None})
 
         return JsonResponse({
-            "room":room_list,
+            "room": room_list,
         })
     else:
         return JsonResponse({"nothing to see": "this isn't happening"})
@@ -193,30 +192,30 @@ def save_starbucks(request):
     result_list = []
 
     while True:
-    	try:
-    		url = base_url + '?' + urllib.urlencode({
-    			'query': encode_text,
-    			'display': 99,
-    			'start': start,
-    		})
-    		request = urllib2.Request(url)
-    		request.add_header('Content-Type', 'application/json')
-    		request.add_header("X-Naver-Client-Id",client_id)
-    		request.add_header("X-Naver-Client-Secret",client_secret)
-    		response = urllib2.urlopen(request).read()
-    	except Exception as e:
-    		raise Exception(e)
-    	else:
-    		result = json.loads(response)
-    		result_list += (result['items'])
-    		start += 99
-    		count += 99
-    		if result['total'] <= count or start > 1000:
-    			break
+        try:
+            url = base_url + '?' + urllib.urlencode({
+                'query': encode_text,
+                'display': 99,
+                'start': start,
+            })
+            request = urllib2.Request(url)
+            request.add_header('Content-Type', 'application/json')
+            request.add_header("X-Naver-Client-Id", client_id)
+            request.add_header("X-Naver-Client-Secret", client_secret)
+            response = urllib2.urlopen(request).read()
+        except Exception as e:
+            raise Exception(e)
+        else:
+            result = json.loads(response)
+            result_list += (result['items'])
+            start += 99
+            count += 99
+            if result['total'] <= count or start > 1000:
+                break
 
     haikunator = Haikunator(nouns=['starbucks'])
     for result in result_list:
-    	if result['title'].startswith(u'<b>스타벅스</b> '):
+        if result['title'].startswith(u'<b>스타벅스</b> '):
             name = result['title'].replace(u'<b>스타벅스</b>', u'스타벅스')
             new_room = None
             if CafeRoom.objects.filter(name=name).exists():

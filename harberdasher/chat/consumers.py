@@ -1,19 +1,13 @@
-import re
 import json
 import logging
 
+from channels import Channel, Group
+from channels.auth import channel_session_user, channel_session_user_from_http
 from django.utils import timezone
 
-from channels import Channel, Group
-from channels.sessions import channel_session
-from channels.auth import channel_session_user, channel_session_user_from_http
-
-from .models import Room, JoinedUser, Message
-
+from .models import Message, Room
 
 log = logging.getLogger(__name__)
-
-### WebSocket handling ###
 
 
 # This decorator copies the user from the HTTP session (only available in
@@ -66,8 +60,6 @@ def ws_disconnect(message):
     #     except Room.DoesNotExist:
     #         pass
 
-### Chat channel handling ###
-
 
 # Channel_session_user loads the user out from the channel session and presents
 # it as message.user. There's also a http_session_user if you want to do this on
@@ -104,9 +96,9 @@ def chat_join(message):
             user_list = []
             for joined in room.users.all():
                 if joined.is_active():
-                    user_list.append({'user':joined.user.username, 'status':'active'})
+                    user_list.append({'user': joined.user.username, 'status': 'active'})
                 else:
-                    user_list.append({'user':joined.user.username, 'status':'inactive'})
+                    user_list.append({'user': joined.user.username, 'status': 'inactive'})
 
             messages = Message.objects.filter(room=room).order_by('-timestamp')[0:50]
             messages_list = []
@@ -130,9 +122,9 @@ def chat_join(message):
             user_list = []
             for joined in room.users.all():
                 if joined.is_active():
-                    user_list.append({'user':joined.user.username, 'status':'active'})
+                    user_list.append({'user': joined.user.username, 'status': 'active'})
                 else:
-                    user_list.append({'user':joined.user.username, 'status':'inactive'})
+                    user_list.append({'user': joined.user.username, 'status': 'inactive'})
 
             Group("room-%s" % room.id).send({
                 "text": json.dumps({
@@ -152,7 +144,6 @@ def chat_leave(message):
         return
     else:
         Group("room-%s" % room.id).discard(message.reply_channel)
-        # message.channel_session['rooms'] = list(set(message.channel_session['rooms']).difference([room.id]))
 
         joined_user, created = room.users.get_or_create(user=message.user)
         if joined_user:
@@ -166,8 +157,6 @@ def chat_leave(message):
                 "user": message.user.username,
             }),
         })
-
-
 
 
 @channel_session_user
@@ -191,9 +180,6 @@ def chat_send(message):
             message=message["message"]
         )
         Group("room-%s" % room.id).send({"text": json.dumps(m.as_dict())})
-                # 'user': message.user.username,
-                # 'message': message["message"],
-                # 'timestamp': timezone.now().astimezone(timezone.get_current_timezone()).strftime('%b %-d %-I:%M %p')
 
         private, first, last = room.label.split('-')
         if private == 'private':

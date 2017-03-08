@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -29,6 +29,7 @@ def get_my_rooms(self):
 User.add_to_class('get_my_rooms', get_my_rooms)
 # User.add_to_class('get_my_private_rooms', get_my_private_rooms)
 
+
 @python_2_unicode_compatible
 class Room(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -49,7 +50,6 @@ class Message(models.Model):
     room = models.ForeignKey(Room, related_name='messages')
     message = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now, db_index=True)
-
 
     def __str__(self):
         # return '{0},{1},{2},{3}'.format(self.message, self.user.username, self.formatted_timestamp, self.room)

@@ -1,20 +1,20 @@
 import os
-from PIL import Image
 from random import shuffle
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.conf import settings as django_settings
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, redirect, render
+from harberdasher.chat.models import JoinedUser
+from PIL import Image
 
-from .models import Profile, Tag
-from harberdasher.chat.models import Room, CafeRoom, JoinedUser
-
-from .forms import SignUpForm, LoginForm, ProfileForm, ChangePasswordForm
+from .forms import ChangePasswordForm, LoginForm, ProfileForm, SignUpForm
+from .models import Tag
 
 ACTIVE = 'A'
+
 
 @login_required
 def profile(request, username):
@@ -135,7 +135,7 @@ def save_uploaded_picture(request):
         messages.add_message(request, messages.SUCCESS,
                              'Your picture was successfully edited.')
 
-    except Exception, e:
+    except Exception:
         pass
 
     return redirect('/users/' + request.user.username)
@@ -150,8 +150,7 @@ def tag(request, tag_name):
     for tag in tags:
         users.append(tag.user)
     popular_tags = Tag.get_popular_tags()
-    return render(request, 'users/tag.html',
-        {
+    return render(request, 'users/tag.html', {
             'tag_name': tag_name,
             'users': users,
             'popular_tags': popular_tags
@@ -178,8 +177,7 @@ def tags(request):
     shuffled_tags = count.items()
     shuffle(shuffled_tags)
 
-    return render(request, 'users/tags.html',
-        {
+    return render(request, 'users/tags.html', {
             'shuffled_tags': shuffled_tags,
         })
 
@@ -188,8 +186,7 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if not form.is_valid():
-            return render(request, 'users/signup.html',
-                {'form': form})
+            return render(request, 'users/signup.html', {'form': form})
 
         else:
             username = form.cleaned_data.get('username')
@@ -203,8 +200,7 @@ def signup(request):
             return redirect('/')
 
     else:
-        return render(request, 'users/signup.html',
-            {'form': SignUpForm()})
+        return render(request, 'users/signup.html', {'form': SignUpForm()})
 
 
 def user_login(request):
@@ -225,16 +221,15 @@ def user_login(request):
                 return redirect(next)
             else:
                 next = request.POST.get('next')
-                form.errors.setdefault("username","cannot login")
-                return render(request, 'users/login.html',
-                    {'form': form, 'next': next,})
+                form.errors.setdefault("username", "cannot login")
+                return render(request, 'users/login.html', {
+                    'form': form, 'next': next})
         else:
             next = request.POST.get('next')
-            return render(request, 'users/login.html',
-                {'form': form, 'next': next,})
+            return render(request, 'users/login.html', {
+                'form': form, 'next': next})
 
     else:
         next = request.GET.get('next', '/')
-        return render(request, 'users/login.html',
-            {'form': LoginForm(),
-            'next': next,})
+        return render(request, 'users/login.html', {
+            'form': LoginForm(), 'next': next})

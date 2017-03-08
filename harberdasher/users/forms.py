@@ -1,11 +1,10 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from django import forms
-from django.forms import extras
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.forms import extras
 from harberdasher.settings import ALLOWED_SIGNUP_DOMAINS
-
 
 MALE = 'M'
 FEMALE = 'F'
@@ -50,6 +49,7 @@ LOCATION_CHOICES = (
     (JEONBUK, '전라북도'),
     (JEONNAM, '전라남도'),
 )
+
 
 def SignupDomainValidator(value):
     if '*' not in ALLOWED_SIGNUP_DOMAINS:
@@ -176,7 +176,7 @@ class ProfileForm(forms.ModelForm):
         required=False,
     )
     birthdate = forms.DateField(
-        widget=extras.SelectDateWidget(years= range(2017, 1949, -1)),
+        widget=extras.SelectDateWidget(years=range(2017, 1949, -1)),
         required=False
     )
     interests = forms.CharField(

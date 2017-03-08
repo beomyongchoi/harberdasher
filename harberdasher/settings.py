@@ -1,5 +1,3 @@
-import os
-
 from unipath import Path
 
 PROJECT_DIR = Path(__file__).parent
@@ -58,8 +56,8 @@ TEMPLATES = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'y0nkiij6humroewt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'NAME': 'm0jhk4oepzwacc9i',
+        'HOST': '127.0.0.1',
+        'NAME': 'root',
         'USER': 'fab5qzfq01wyskdp',
         'PASSWORD': 'clu12p5gqspu7zdm',
     }

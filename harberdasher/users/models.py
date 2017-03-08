@@ -1,9 +1,7 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
 
-import urllib
-import hashlib
 import os.path
 
 from django.contrib.auth.models import User
@@ -26,11 +24,13 @@ def create_or_update_tags(self, tags):
             t.status = 'A'
             t.save()
 
+
 def get_tags(self):
     return Tag.objects.filter(user=self)
 
 User.add_to_class('create_or_update_tags', create_or_update_tags)
 User.add_to_class('get_tags', get_tags)
+
 
 class Profile(models.Model):
     MALE = 'M'
@@ -81,7 +81,6 @@ class Profile(models.Model):
     birthdate = models.DateField(null=True, blank=True)
     greeting_message = models.TextField(max_length=2000, null=True, blank=True)
 
-
     class Meta:
         db_table = 'auth_profile'
 
@@ -99,7 +98,7 @@ class Profile(models.Model):
             #         )
             #     return gravatar_url
 
-        except Exception, e:
+        except Exception:
             pass
         return no_picture
 
