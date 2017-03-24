@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from unipath import Path
 
 PROJECT_DIR = Path(__file__).parent
@@ -57,9 +58,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '127.0.0.1',
-        'NAME': 'root',
-        'USER': 'fab5qzfq01wyskdp',
-        'PASSWORD': 'clu12p5gqspu7zdm',
+        'NAME': 'starbucks',
+        'USER': 'root',
+        'PASSWORD': 'supersecret',
     }
 }
 
@@ -68,7 +69,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
-            "hosts": ["redis://:v5qT2f77rvVJfSMJ@redis-15215.c11.us-east-1-3.ec2.cloud.redislabs.com:15215/0"],
+            "hosts": ["redis://127.0.0.1:6379/0"],
         },
         "ROUTING": "harberdasher.routing.channel_routing",
     },
@@ -146,3 +147,9 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 ALLOWED_SIGNUP_DOMAINS = ['*']
+
+# session 관련 설정
+# 세션 타임아웃 (단위:초)
+SESSION_COOKIE_AGE = 300
+# 브라우저가 닫히면 세션을 종료하는 설정. default: False
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True

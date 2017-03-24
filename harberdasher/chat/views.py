@@ -31,66 +31,6 @@ def about(request):
         'count': count,
     })
 
-# @login_required
-# def get_unreads(request):
-#     user = request.user
-#     rooms = JoinedUser.objects.filter(room__label__startswith='private').filter(user=user)
-#
-#     count = 0
-#     for room in rooms:
-#         count += room.get_unread_count
-#
-#     return render(request, "chat/about.html", {
-#         'list': starbucks,
-#         'count': count,
-#     })
-#
-# @login_required
-# def new_room(request, username):
-#     """
-#     Randomly create a new room, and redirect to it.
-#     """
-#     new_room = None
-#     while not new_room:
-#         with transaction.atomic():
-#             haikunator = Haikunator()
-#             label = haikunator.haikunate()
-#             name = label.replace('-', ' ')
-#             if Room.objects.filter(label=label).exists():
-#                 continue
-#             new_room = Room.objects.create(name=name, label=label)
-#     return redirect(chat_room, label=label)
-
-# def _room(request, room):
-#     joined_user, created = JoinedUser.objects.get_or_create(
-#         user=request.user,
-#         room=room,
-#     )
-#
-#     return render(request, "chat/room.html", {
-#         'room': room,
-#     })
-#
-#
-# @login_required
-# def random_room(request):
-#     random_id = random.randint(0,1000)
-#     room = Room.objects.filter(id__lte=random_id).last()
-#
-#     joined_user, created = JoinedUser.objects.get_or_create(
-#         user=request.user,
-#         room=room,
-#     )
-#
-#     return _room(request, room)
-#
-#
-# @login_required
-# def starbucks_room(request, label):
-#     room, created = Room.objects.get_or_create(label=label)
-#
-#     return _room(request, room)
-
 
 @login_required
 def private_room(request):
@@ -98,19 +38,8 @@ def private_room(request):
         i = request.user.username
         you = request.POST.get('you')
 
-        # if request.META.get('HTTP_REFERER'):
-        #     prev = request.META.get('HTTP_REFERER')
-        # else:
-        #     prev = '/'
-
         if i == you:
             return JsonResponse({"error": "impossible"})
-
-        # if not any(user == request.user.username for user in users) or users[0] == users[1]:
-        #     return render(request, "chat/this-is-private.html", {
-        #         'room':label,
-        #         'prev':prev,
-        #     })
 
         private = sorted([i, you])
         name = " ".join(str(x) for x in private).title()
@@ -140,15 +69,9 @@ def private_room(request):
             obj = JoinedUser(**new_values)
             obj.save()
 
-        # messages = room.messages.order_by('timestamp')
-        # message_list = list(messages)
-        # for index, value in enumerate(message_list):
-        #     message_list[index] = str(message_list[index]).strip('<').split(',')
-
         result = {
             "title": you.title(),
             "room": room.id,
-            # "message": message_list,
         }
         return JsonResponse(result)
     else:
@@ -168,10 +91,6 @@ def private_room_list(request):
                 'name': x.room.label.replace(user.username, '').replace('private', '').strip('-'),
                 'unread_count': x.get_unread_count
             })
-
-        # room = list(Room.objects.filter(label__startswith='nameless').values())
-        # if len(room) is 0:
-            # return JsonResponse({"room":None})
 
         return JsonResponse({
             "room": room_list,
