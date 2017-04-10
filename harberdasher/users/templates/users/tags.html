@@ -8,10 +8,14 @@
 {% block content %}
 
 <div class="docs-section center">
+    {% if no_tag %}
+    <p>No interests have been created yet. Be the protagonist of the first interest tag :)</p>
+    {% else %}
     <h2 class="title" style="margin-bottom:4rem">Interests</h4>
     {% for tag, count in shuffled_tags %}
      <a class="tags tag-{{ count }}" href="{% url 'tag' tag %}" style="display:inline-block;padding:0 3px;">{{ tag }}</a>
     {% endfor %}
+    {% endif %}
 </div>
 
 {% endblock %}

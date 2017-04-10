@@ -5,7 +5,7 @@ PROJECT_DIR = Path(__file__).parent
 
 SECRET_KEY = '3izb^rygwj(bvrjb2_y1fZvcnbay#358_l6-nn#i5fkug4mmz!'
 
-DEBUG = False
+DEBUG = True
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -40,13 +40,16 @@ ROOT_URLCONF = 'harberdasher.urls'
 TEMPLATES = (
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [PROJECT_DIR.child('templates'),],
+        'DIRS': [PROJECT_DIR.child('templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
             'debug': DEBUG,
@@ -133,7 +136,7 @@ LOGGING = {
         },
         'harberdasher.chat': {
             'handlers': ['console'],
-            'propagate': False,
+            'propagate': True,
             'level': 'DEBUG',
         },
     },

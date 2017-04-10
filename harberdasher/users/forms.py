@@ -58,7 +58,7 @@ def SignupDomainValidator(value):
             if domain not in ALLOWED_SIGNUP_DOMAINS:
                 raise ValidationError(u'Invalid domain. Allowed domains on this network: {0}'.format(','.join(ALLOWED_SIGNUP_DOMAINS)))
 
-        except Exception, e:
+        except Exception:
             raise ValidationError(u'Invalid domain. Allowed domains on this network: {0}'.format(','.join(ALLOWED_SIGNUP_DOMAINS)))
 
 

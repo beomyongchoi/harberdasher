@@ -52,6 +52,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# vscode
+.vscode/
+
 .DS_Store
 *.sqlite3
 media/
@@ -60,3 +63,7 @@ media/
 
 venv_bootcamp/
 staticfiles
+tags
+
+celerybeat-schedule
+.idea/

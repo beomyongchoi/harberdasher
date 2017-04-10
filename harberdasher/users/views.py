@@ -1,3 +1,4 @@
+import logging
 import os
 from random import shuffle
 
@@ -7,11 +8,14 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
-from harberdasher.chat.models import JoinedUser
 from PIL import Image
+
+from harberdasher.chat.models import JoinedUser
 
 from .forms import ChangePasswordForm, LoginForm, ProfileForm, SignUpForm
 from .models import Tag
+
+log = logging.getLogger(__name__)
 
 ACTIVE = 'A'
 
@@ -23,7 +27,7 @@ def profile(request, username):
         if request.GET.get('upload_picture') == 'uploaded':
             uploaded_picture = True
 
-    except Exception, e:
+    except Exception:
         pass
 
     user = request.user
@@ -113,8 +117,8 @@ def upload_picture(request):
 
         return redirect('/users/' + request.user.username + '/?upload_picture=uploaded')
 
-    except Exception, e:
-        print e
+    except Exception as e:
+        log.warning(str(e))
         return redirect('/users/' + request.user.username)
 
 
@@ -168,7 +172,12 @@ def tags(request):
         else:
             count[tag.tag] = 1
 
-    max_count = sorted(count.items(), key=lambda t: t[1], reverse=True)[0][1]
+    try:
+        max_count = sorted(count.items(), key=lambda t: t[1], reverse=True)[0][1]
+
+    except Exception as e:
+        log.warning(str(e))
+        return render(request, 'users/tags.html', {'no_tag': True})
 
     for key, value in count.iteritems():
         new_value = value * 128 / max_count

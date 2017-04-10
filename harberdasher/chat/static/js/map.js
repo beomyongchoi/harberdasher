@@ -32,8 +32,8 @@ function onErrorGeolocation() {
 $(document).ready(function() {
     updateMarkers(map, markers);
 
-    if (navigator.geolocation && window.location.protocol == "https:")
-        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+    // if (navigator.geolocation && window.location.protocol == "https:")
+    //     navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 
     $("#current").click(function() {
         if (navigator.geolocation)
@@ -41,8 +41,6 @@ $(document).ready(function() {
     });
 
 });
-
-
 
 function highlightMarker(marker) {
     var icon = marker.getIcon();
@@ -104,8 +102,8 @@ for (var i = 0, starbucks; starbucks = starbucksList[i]; i++) {
         if (!currentUser){
             //login required
             console.log("please login");
-            window.location = URL + 'users/login';
-            return;
+            window.location = URL + 'users/login'
+            return
         } else if ($(".chat-body").attr("id") == m.id && $("#chatbox").css("display") != "none") {
             //same room clicked
             console.log("nothing");
